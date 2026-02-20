@@ -1,5 +1,5 @@
 ## Netlify (Deploy)
-Link: [challenge02pwa.netlify.app](https://challenge02pwa.netlify.app/)
+Link: [https://challenge02pwa.netlify.app/](https://challenge02pwa.netlify.app/)
 
 ## Instalación en el celular (PWA)
 
