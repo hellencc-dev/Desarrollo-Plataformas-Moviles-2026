@@ -19,7 +19,6 @@ export interface Task {
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  // Effect "si es necesario": cargar 2 tareas iniciales (similar a lo que hicieron antes)
   useEffect(() => {
     setTasks([
       { id: 1, title: "Hacer el Challenge 03", done: false },
