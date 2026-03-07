@@ -1,4 +1,8 @@
+import {useMemo, useState} from "react";
 import type { Paciente, Usuario } from "../types";
+import BuscadorPacientes from "./SearchPacients";
+import FormularioPaciente  from "./FormPacients";
+import TablaPacientes from "./TablePacients";
 
 interface Props {
   user: Usuario;
@@ -9,7 +13,31 @@ interface Props {
   onEliminarPaciente: (id: number) => void;
 }
 
-export default function Dashboard({ user }: Props) {
+export default function Dashboard({
+  user,
+  pacientes,
+  pacienteAEditar,
+  onGuardarPaciente,
+  onEditarPaciente,
+  onEliminarPaciente,
+}: Props) {
+  const [textoBusqueda, setTextoBusqueda] = useState("");
+
+  const pacientesFiltrados = useMemo(() => {
+    const texto = textoBusqueda.trim().toLowerCase();
+
+    if (!texto) return pacientes;
+
+    return pacientes.filter((p) => {
+      const nombreCompleto = `${p.nombre} ${p.apellido}`.toLowerCase();
+
+      return (
+        nombreCompleto.includes(texto) ||
+        p.dni.toLowerCase().includes(texto)
+      );
+    });
+  }, [textoBusqueda, pacientes]);
+
   return (
     <div style={{ marginTop: 16 }}>
       <h2>Dashboard</h2>
@@ -23,19 +51,37 @@ export default function Dashboard({ user }: Props) {
           }}
         >
           <h3>Estadísticas</h3>
-          <p>Sección visible para personal medico</p>
+          <p>Resumen diario de atención.</p>
         </section>
       )}
+
+      <BuscadorPacientes
+        value={textoBusqueda}
+        onChange={setTextoBusqueda}
+      />
 
       {user.rol !== "medico" && (
-        <section style={{border: "1px solid #ddd", padding: 12, marginBottom: 16}}>
-          <h3>Formulario de alta de pacientes</h3>
-        </section>
+        <FormularioPaciente
+          pacienteAEditar={pacienteAEditar}
+          onGuardar={onGuardarPaciente}
+        />
       )}
 
-      <section style={{ border: "1px solid #ddd", padding: 12 }}>
-        <h3>Resumen diario</h3>
-      </section>
+      <TablaPacientes
+        pacientes={pacientesFiltrados}
+        onEditar={onEditarPaciente}
+        onEliminar={onEliminarPaciente}
+      />
+
+      <div
+        style={{
+          marginTop: 16,
+          border: "1px dashed #aaa",
+          padding: 12,
+        }}
+      >
+        <h3>Turnos y resumen diario</h3>
+      </div>
     </div>
   );
 }
