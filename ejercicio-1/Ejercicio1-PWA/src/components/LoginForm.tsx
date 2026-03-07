@@ -11,7 +11,7 @@ export default function LoginForm({ onLogin }: Props) {
   const [error, setError] = useState("");
 
   const handleLogin = () => {
-    if (email === "user@mail.com" && password === "123") {
+    if (email === "ccastro@mail.com" && password === "123") {
       setError("");
       onLogin({
         email,
@@ -21,11 +21,11 @@ export default function LoginForm({ onLogin }: Props) {
       return;
     }
 
-    if (email === "medico@mail.com" && password === "123") {
+    if (email === "hellencuenu@mail.com" && password === "0123") {
       setError("");
       onLogin({
         email,
-        nombre: "Hellen",
+        nombre: "Hellen Cuenu",
         rol: "medico",
       });
       return;
