@@ -1,0 +1,7 @@
+{
+  "name": "login-challenge",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
