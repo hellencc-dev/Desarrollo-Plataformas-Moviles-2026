@@ -4,10 +4,10 @@ import { Redirect, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import TasksList from "./pages/TaskList";
-import AddTask from "./pages/AddTask";
-import EditTask from "./pages/EditTask";
-import TaskDetail from "./pages/TaskDetail";
+import Home from "./pages/Home";
+import Contacts from "./pages/Contacts";
+import Tasks from "./pages/Tasks";
+import Fruits from "./pages/Fruits";
 import PrivateRoute from "./components/PrivateRoute";
 import { useAuthContext } from "./context/AuthContext";
 
@@ -52,31 +52,31 @@ export default function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/login">
-            {user ? <Redirect to="/tasks" /> : <Login />}
+            {user ? <Redirect to="/home" /> : <Login />}
           </Route>
 
           <Route exact path="/register">
-            {user ? <Redirect to="/tasks" /> : <Register />}
+            {user ? <Redirect to="/home" /> : <Register />}
           </Route>
 
+          <PrivateRoute exact path="/home">
+            <Home />
+          </PrivateRoute>
+
+          <PrivateRoute exact path="/contacts">
+            <Contacts />
+          </PrivateRoute>
+
           <PrivateRoute exact path="/tasks">
-            <TasksList />
+            <Tasks />
           </PrivateRoute>
 
-          <PrivateRoute exact path="/tasks/add">
-            <AddTask />
-          </PrivateRoute>
-
-          <PrivateRoute exact path="/tasks/edit/:id">
-            <EditTask />
-          </PrivateRoute>
-
-          <PrivateRoute exact path="/tasks/detail/:id">
-            <TaskDetail />
+          <PrivateRoute exact path="/fruits">
+            <Fruits />
           </PrivateRoute>
 
           <Route exact path="/">
-            <Redirect to={user ? "/tasks" : "/login"} />
+            <Redirect to={user ? "/home" : "/login"} />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>
