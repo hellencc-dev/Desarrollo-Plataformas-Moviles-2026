@@ -87,6 +87,16 @@ export default function Home() {
                   Ir a misión 1
                 </IonButton>
               )}
+
+              {mission.id === 2 && mission.unlocked && (
+                <IonButton
+                  expand="block"
+                  style={{ marginTop: "12px" }}
+                  routerLink="/mission-distance"
+                >
+                  Ir a misión 2
+                </IonButton>
+              )}
             </IonCardContent>
           </IonCard>
         ))}
