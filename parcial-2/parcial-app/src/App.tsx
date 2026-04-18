@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import { useAuthContext } from "./context/AuthContext";
 import MissionPhoto from "./pages/MissionPhoto";
 import MissionDistance from "./pages/MissionDistance";
+import Mission3 from "./pages/Mission3";
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -65,11 +66,17 @@ export default function App() {
           <Route exact path="/">
             <Redirect to={user ? "/home" : "/login"} />
           </Route>
+
           <Route exact path="/mission-photo">
             {user ? <MissionPhoto /> : <Redirect to="/login" />}
           </Route>
+
           <Route exact path="/mission-distance">
             {user ? <MissionDistance /> : <Redirect to="/login" />}
+          </Route>
+
+          <Route exact path="/mission-3">
+            {user ? <Mission3 /> : <Redirect to="/login" />}
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

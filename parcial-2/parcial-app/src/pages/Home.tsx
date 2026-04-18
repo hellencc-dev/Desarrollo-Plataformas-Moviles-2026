@@ -74,8 +74,8 @@ export default function Home() {
                 {mission.completed
                   ? "Completada"
                   : mission.unlocked
-                  ? "Pendiente"
-                  : "Bloqueada"}
+                    ? "Pendiente"
+                    : "Bloqueada"}
               </p>
 
               {mission.id === 1 && mission.unlocked && (
@@ -95,6 +95,16 @@ export default function Home() {
                   routerLink="/mission-distance"
                 >
                   Ir a misión 2
+                </IonButton>
+              )}
+
+              {mission.id === 3 && mission.unlocked && (
+                <IonButton
+                  expand="block"
+                  style={{ marginTop: "12px" }}
+                  routerLink="/mission-still"
+                >
+                  Ir a misión 3
                 </IonButton>
               )}
             </IonCardContent>
