@@ -1,17 +1,31 @@
 import {
   IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonContent,
   IonHeader,
   IonPage,
+  IonProgressBar,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import { useGameProgress } from "../hooks/useGameProgress";
 
 export default function Home() {
   const history = useHistory();
   const { user, logout } = useAuthContext();
+
+  const {
+    missions,
+    points,
+    progress,
+    completedCount,
+    resetProgress,
+  } = useGameProgress(user?.uid);
 
   const handleLogout = async () => {
     await logout();
@@ -22,13 +36,54 @@ export default function Home() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>Parcial 2</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="ion-padding">
         <h2>Bienvenid@</h2>
         <p>{user?.email}</p>
+
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Puntos totales: {points}</IonCardTitle>
+          </IonCardHeader>
+
+          <IonCardContent>
+            <p>
+              Progreso: {completedCount} / {missions.length}
+            </p>
+            <IonProgressBar value={progress}></IonProgressBar>
+            <p style={{ marginTop: "8px" }}>
+              {Math.round(progress * 100)}% completado
+            </p>
+          </IonCardContent>
+        </IonCard>
+
+        {missions.map((mission) => (
+          <IonCard key={mission.id}>
+            <IonCardHeader>
+              <IonCardTitle>{mission.title}</IonCardTitle>
+            </IonCardHeader>
+
+            <IonCardContent>
+              <p>{mission.description}</p>
+              <p>Puntos: {mission.points}</p>
+              <p>
+                Estado:{" "}
+                {mission.completed
+                  ? "Completada"
+                  : mission.unlocked
+                  ? "Pendiente"
+                  : "Bloqueada"}
+              </p>
+            </IonCardContent>
+          </IonCard>
+        ))}
+
+        <IonButton expand="block" color="medium" onClick={resetProgress}>
+          Reiniciar progreso
+        </IonButton>
 
         <IonButton expand="block" color="danger" onClick={handleLogout}>
           Cerrar sesión
