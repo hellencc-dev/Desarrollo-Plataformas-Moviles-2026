@@ -14,6 +14,8 @@ import {
 import { useHistory } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { useGameProgress } from "../hooks/useGameProgress";
+import { saveProgressToFirebase } from "../firebase/saveProgress";
+import { useEffect } from "react";
 
 export default function Home() {
   const history = useHistory();
@@ -26,6 +28,12 @@ export default function Home() {
     completedCount,
     resetProgress,
   } = useGameProgress(user?.uid);
+
+  useEffect(() => {
+    if (!user) return;
+
+    saveProgressToFirebase(user.uid, user.email || "", points, missions);
+  }, [user, points, missions]);
 
   const handleLogout = async () => {
     await logout();
