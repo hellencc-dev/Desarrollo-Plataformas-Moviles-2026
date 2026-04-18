@@ -1,0 +1,7 @@
+{
+  "name": "parcial-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
