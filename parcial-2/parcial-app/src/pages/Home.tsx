@@ -36,7 +36,7 @@ export default function Home() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Parcial 2</IonTitle>
+          <IonTitle>Parcial 2 Home</IonTitle>
         </IonToolbar>
       </IonHeader>
 
@@ -77,6 +77,16 @@ export default function Home() {
                   ? "Pendiente"
                   : "Bloqueada"}
               </p>
+
+              {mission.id === 1 && mission.unlocked && (
+                <IonButton
+                  expand="block"
+                  style={{ marginTop: "12px" }}
+                  routerLink="/mission-photo"
+                >
+                  Ir a misión 1
+                </IonButton>
+              )}
             </IonCardContent>
           </IonCard>
         ))}

@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { useAuthContext } from "./context/AuthContext";
+import MissionPhoto from "./pages/MissionPhoto";
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -62,6 +63,9 @@ export default function App() {
 
           <Route exact path="/">
             <Redirect to={user ? "/home" : "/login"} />
+          </Route>
+          <Route exact path="/mission-photo">
+            {user ? <MissionPhoto /> : <Redirect to="/login" />}
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

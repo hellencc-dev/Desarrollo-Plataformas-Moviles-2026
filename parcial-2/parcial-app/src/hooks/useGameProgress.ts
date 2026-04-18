@@ -85,21 +85,15 @@ export function useGameProgress(userId?: string) {
   const completeMission = (missionId: number) => {
     const mission = missions.find((m) => m.id === missionId);
 
-    if (!mission || mission.completed || !mission.unlocked) return;
+    if (!mission) return;
+    if (mission.completed) return;
+    if (!mission.unlocked) return;
 
     const updatedMissions = missions.map((m) =>
       m.id === missionId ? { ...m, completed: true } : m
     );
 
-    if (missionId === 2) {
-      const withUnlockedMission3 = updatedMissions.map((m) =>
-        m.id === 3 ? { ...m, unlocked: true } : m
-      );
-      setMissions(withUnlockedMission3);
-    } else {
-      setMissions(updatedMissions);
-    }
-
+    setMissions(updatedMissions);
     setPoints((prev) => prev + mission.points);
   };
 
