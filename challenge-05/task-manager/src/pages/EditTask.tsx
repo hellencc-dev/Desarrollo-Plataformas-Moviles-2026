@@ -19,22 +19,26 @@ export default function EditTask() {
   const taskId = Number(id);
 
   const history = useHistory();
-  const { tasks, updateTask } = useTasksContext();
+  const { getTaskById, updateTask } = useTasksContext();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    const task = tasks.find((t) => t.id === taskId);
+    const loadTask = async () => {
+      const task = await getTaskById(taskId);
 
-    if (task) {
-      setTitle(task.title ?? "");
-      setDescription(task.description ?? "");
-    }
-  }, [taskId, tasks]);
+      if (task) {
+        setTitle(task.title ?? "");
+        setDescription(task.description ?? "");
+      }
+    };
 
-  const handleSave = () => {
-    updateTask(taskId, title, description);
+    loadTask();
+  }, [taskId, getTaskById]);
+
+  const handleSave = async () => {
+    await updateTask(taskId, title, description);
     history.push("/tasks");
   };
 

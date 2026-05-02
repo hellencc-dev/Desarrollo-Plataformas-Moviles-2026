@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   IonBackButton,
   IonButtons,
@@ -8,14 +9,23 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useParams } from "react-router-dom";
-import { useTasksContext } from "../context/TasksContext";
+import { useTasksContext, type Task } from "../context/TasksContext";
 
 export default function TaskDetail() {
   const { id } = useParams<{ id: string }>();
   const taskId = Number(id);
   const { getTaskById } = useTasksContext();
 
-  const task = getTaskById(taskId);
+  const [task, setTask] = useState<Task | undefined>(undefined);
+
+  useEffect(() => {
+    const loadTask = async () => {
+      const foundTask = await getTaskById(taskId);
+      setTask(foundTask);
+    };
+
+    loadTask();
+  }, [taskId, getTaskById]);
 
   return (
     <IonPage>

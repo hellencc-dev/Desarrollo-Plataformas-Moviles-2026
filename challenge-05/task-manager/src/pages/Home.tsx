@@ -7,8 +7,6 @@ import {
   IonToolbar,
 } from "@ionic/react";
 
-import TaskForm from "../components/TaskForm";
-import TaskList from "../components/TaskList";
 
 export interface Task {
   id: number;
@@ -58,8 +56,6 @@ export default function Home() {
       </IonHeader>
 
       <IonContent className="ion-padding">
-        <TaskForm onAdd={addTask} />
-        <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} />
       </IonContent>
     </IonPage>
   );
